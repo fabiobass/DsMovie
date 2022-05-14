@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Movie } from 'types/movies';
+import { Movie } from 'types/movie';
 import { BASE_URL } from 'utils/requests';
 import './styles.css';
-
 
 type Props = {
     movieId: string;
@@ -12,14 +11,15 @@ type Props = {
 
 function FormCard({ movieId }: Props) {
 
-
     const [movie, setMovie] = useState<Movie>();
+
     useEffect(() => {
-        axios.get(`${BASE_URL}/movie${movieId}`)
+        axios.get(`${BASE_URL}/movies/${movieId}`)
             .then(response => {
-                setMovie(response.data)
+                setMovie(response.data);
             });
-    }, [movieId]);
+    })
+
     return (
         <div className="dsmovie-form-container">
             <img className="dsmovie-movie-card-image" src={movie?.image} alt={movie?.title} />
@@ -44,10 +44,9 @@ function FormCard({ movieId }: Props) {
                         <button type="submit" className="btn btn-primary dsmovie-btn">Salvar</button>
                     </div>
                 </form >
-                <Link to='/'>
+                <Link to="/">
                     <button className="btn btn-primary dsmovie-btn mt-3">Cancelar</button>
                 </Link>
-
             </div >
         </div >
     );
